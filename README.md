@@ -1,6 +1,6 @@
-<title>Atividade Continuada</title>
+<h1>Atividade Continuada</h1>
 
-<h1>Disciplina : POO</h1>
-<h1>Linguagem Utilizada : Java</h1>
+<h3>Disciplina : POO</h3>
+<h3>Linguagem Utilizada : Java</h3>
 
-Autores: Caio Lima e Felipe Bandeira
+<h4>Autores: Caio Lima e Felipe Bandeira</h4>
