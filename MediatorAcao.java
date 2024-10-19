@@ -86,4 +86,11 @@ public class MediatorAcao {
             return "Ação inexistente";
         }
     }
+    
+    public Acao buscar(int identificador) throws IOException {
+        if (identificador <= 0 || identificador >= 100000) {
+            return null;
+        }
+        return repositorioAcao.buscar(identificador); 
+    }
 }
