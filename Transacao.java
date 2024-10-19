@@ -1,22 +1,8 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/*
- * Esta classe contém os seguintes atributos:
- * - entidadeCredito, do tipo EntidadeOperadora
- * - entidadeDebito, do tipo EntidadeOperadora
- * - acao, do tipo Acao
- * - tituloDivida, do tipo TituloDivida
- * - valorOperacao, do tipo double
- * - dataHoraOperacao, do tipo LocalDateTime
- * 
- * A classe deve ter um construtor público que inicializa todos os atributos.
- * Além disso, deve ter métodos get públicos para todos os atributos e métodos
- * set públicos somente se necessário.
- */
-public class Transacao extends Acao{
+public class Transacao {
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -24,9 +10,10 @@ public class Transacao extends Acao{
     private double valorOperacao;
     private LocalDateTime dataHoraOperacao;
 
-    public Transacao(int identificador, String nome, LocalDate datadevalidade, double valorUnitario,EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito, Acao acao,TituloDivida tituloDivida, double valorOperacao, LocalDateTime dataHoraOperacao) {
-        super(identificador, nome, datadevalidade, valorOperacao);
-    	this.entidadeCredito = entidadeCredito;
+    public Transacao(EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito,
+                     Acao acao, TituloDivida tituloDivida, double valorOperacao,
+                     LocalDateTime dataHoraOperacao) {
+        this.entidadeCredito = entidadeCredito;
         this.entidadeDebito = entidadeDebito;
         this.acao = acao;
         this.tituloDivida = tituloDivida;
@@ -34,7 +21,7 @@ public class Transacao extends Acao{
         this.dataHoraOperacao = dataHoraOperacao;
     }
 
-	public EntidadeOperadora getEntidadeCredito() {
+    public EntidadeOperadora getEntidadeCredito() {
         return entidadeCredito;
     }
 
