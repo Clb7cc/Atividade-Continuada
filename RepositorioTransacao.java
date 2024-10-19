@@ -48,8 +48,8 @@ public class RepositorioTransacao {
             int idEntidadeCredito = Integer.parseInt(partes[0]);
 
             if (idEntidadeCredito == identificadorEntidadeCredito) {
-                EntidadeOperadora entidadeCredito = new EntidadeOperadora(Integer.parseInt(partes[0]), partes[1], Double.parseDouble(partes[3]));
-                EntidadeOperadora entidadeDebito = new EntidadeOperadora(Integer.parseInt(partes[5]), partes[6], Double.parseDouble(partes[8]));
+            	EntidadeOperadora entidadeCredito = new EntidadeOperadora(Integer.parseInt(partes[0]), partes[1],Boolean.parseBoolean(partes[3]));
+            	EntidadeOperadora entidadeDebito = new EntidadeOperadora(Integer.parseInt(partes[5]), partes[6], Boolean.parseBoolean(partes[8]));
 
                 Acao acao = null;
                 if (!partes[10].equals("null")) {
@@ -64,7 +64,58 @@ public class RepositorioTransacao {
                 double valorOperacao = Double.parseDouble(partes[18]);
                 LocalDateTime dataHoraOperacao = LocalDateTime.parse(partes[19], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-                transacoes[indice] = new Transacao(idEntidadeCredito, linha, null, valorOperacao, entidadeCredito, entidadeDebito, acao, tituloDivida, valorOperacao, dataHoraOperacao);
+                transacoes[indice] = new Transacao(entidadeCredito, entidadeDebito, acao, tituloDivida, valorOperacao, dataHoraOperacao);
+                indice++;
+            }
+        }
+        reader.close();
+
+        return transacoes;
+    }
+    
+    public Transacao[] buscarPorEntidadeDevedora(int identificadorEntidadeDebito) throws IOException {
+        int contador = 0;
+
+        BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            int idEntidadeDebito = Integer.parseInt(partes[5]);
+
+            if (idEntidadeDebito == identificadorEntidadeDebito) {
+                contador++;
+            }
+        }
+        reader.close();
+
+        Transacao[] transacoes = new Transacao[contador];
+        int indice = 0;
+
+        reader = new BufferedReader(new FileReader(FILE_NAME));
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            int idEntidadeDebito = Integer.parseInt(partes[5]); 
+
+            if (idEntidadeDebito == identificadorEntidadeDebito) {
+                EntidadeOperadora entidadeCredito = new EntidadeOperadora(Integer.parseInt(partes[0]), partes[1], Boolean.parseBoolean(partes[3]));
+                EntidadeOperadora entidadeDebito = new EntidadeOperadora(Integer.parseInt(partes[5]), partes[6], Boolean.parseBoolean(partes[8]));
+
+                Acao acao = null;
+                if (!partes[10].equals("null")) {
+                    acao = new Acao(Integer.parseInt(partes[10]), partes[11], LocalDate.parse(partes[12]), Double.parseDouble(partes[13]));
+                }
+
+                TituloDivida tituloDivida = null;
+                if (!partes[14].equals("null")) {
+                    tituloDivida = new TituloDivida(Integer.parseInt(partes[14]), partes[15], LocalDate.parse(partes[16]), Double.parseDouble(partes[17]));
+                }
+
+                double valorOperacao = Double.parseDouble(partes[18]);
+                LocalDateTime dataHoraOperacao = LocalDateTime.parse(partes[19], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+                transacoes[indice] = new Transacao(entidadeCredito, entidadeDebito, acao, tituloDivida, valorOperacao, dataHoraOperacao);
                 indice++;
             }
         }
