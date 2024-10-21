@@ -4,3 +4,5 @@
 <h3>Linguagem Utilizada : Java</h3>
 
 <h4>Autores: Caio Lima e Felipe Bandeira</h4>
+
+Status do Projeto : Finalizado 
